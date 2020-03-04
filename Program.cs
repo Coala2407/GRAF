@@ -21,7 +21,7 @@ namespace GRAF
             graph.AddNode("3D Cinema"); //7
             graph.AddNode("Log Flume"); //8
             graph.AddNode("Big Dipper"); //9
-            graph.AddNode("Ghost Train"); //10
+            graph.AddNode("Ghost Train", true); //10
             graph.AddNode("Pirate Ship"); //11
             graph.AddNode("Rollercoaster"); //12
             graph.AddNode("Carousel"); //13
@@ -53,25 +53,34 @@ namespace GRAF
 
             graph.AddEdge(13, 14);
 
+            DFS(graph, graph.nodeList[0]);
 
+            Console.ReadLine();
+        }
 
-
-          
-
-
-            foreach (var item in graph.nodeList)
+        public static void DFS(Graph graph, Node startNode)
+        {
+            Stack<Edge> edgeStack = new Stack<Edge>();
+            edgeStack.Push(new Edge(startNode, startNode));
+            startNode.Visited = true;
+            startNode.Parent = startNode;
+            while (edgeStack.Count > 0)
             {
-                Console.WriteLine(item.Name + " : " + item.Id);
+                Edge e = edgeStack.Pop();
+                if (!e.EndNode.Visited)
+                {
+                    e.EndNode.Visited = true;
+                    e.EndNode.Parent = e.StartNode;
+                    Console.WriteLine(e.StartNode.Name);
+                }
+                foreach (Edge item in graph.edgeList.Where(x => x.StartNode.Id == e.EndNode.Id))
+                {
+                    if (!item.EndNode.Visited)
+                    {
+                        edgeStack.Push(item);
+                    }
+                }
             }
-
-            Console.WriteLine("");
-
-            foreach (var item in graph.edgeList)
-            {
-                Console.WriteLine(item.StartNode.Id + "-" + item.EndNode.Id);
-            }
-
-            Console.Read();
         }
     }
 }
