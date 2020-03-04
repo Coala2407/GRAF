@@ -9,5 +9,7 @@ namespace GRAF
     class Node
     {
         int id;
+
+        public int Id { get => id; set => id = value; }
     }
 }
