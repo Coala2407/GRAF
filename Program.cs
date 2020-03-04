@@ -17,7 +17,7 @@ namespace GRAF
                 graph.AddNode();
 
             }
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 10; i++)
             {
                 graph.AddEdge(i + 1, i + 2);
             }

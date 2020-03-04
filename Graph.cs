@@ -13,9 +13,16 @@ namespace GRAF
 
         public void AddNode()
         {
-            Node nodeToAdd = new Node();
-            nodeToAdd.Id = nodeList.Count + 1;
-            nodeList.Add(nodeToAdd);
+            try
+            {
+                Node nodeToAdd = new Node();
+                nodeToAdd.Id = nodeList.Count + 1;
+                nodeList.Add(nodeToAdd);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
         }
 
         public void AddEdge(int startNodeID, int endNodeID)
@@ -27,10 +34,9 @@ namespace GRAF
                 Edge edgeToAdd = new Edge(startNode, endNode);
                 edgeList.Add(edgeToAdd);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Exception ex = new Exception();
-                Console.WriteLine("Error, boi");
+                Console.WriteLine(e.Message);
             }
         }
     }
