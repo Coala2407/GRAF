@@ -11,11 +11,11 @@ namespace GRAF
         public List<Node> nodeList = new List<Node>();
         public List<Edge> edgeList = new List<Edge>();
 
-        public void AddNode()
+        public void AddNode(string name)
         {
             try
             {
-                Node nodeToAdd = new Node();
+                Node nodeToAdd = new Node(name);
                 nodeToAdd.Id = nodeList.Count + 1;
                 nodeList.Add(nodeToAdd);
             }
