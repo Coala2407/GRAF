@@ -40,7 +40,7 @@ namespace GRAF
             graph.AddEdge(2, 6);
             graph.AddEdge(6, 7);
             graph.AddEdge(7, 4);
-
+            graph.AddEdge(7, 11);
             graph.AddEdge(2, 5);
             graph.AddEdge(5, 8);
             graph.AddEdge(8, 9);
@@ -55,6 +55,11 @@ namespace GRAF
 
             DFS(graph, graph.nodeList[0]);
 
+            //foreach (Edge item in graph.edgeList.Where(x => x.StartNode.Id == 7))
+            //{
+            //    Console.WriteLine(item.EndNode.Name);
+            //}
+
             Console.ReadLine();
         }
 
@@ -67,17 +72,55 @@ namespace GRAF
             while (edgeStack.Count > 0)
             {
                 Edge e = edgeStack.Pop();
+                //Write current end node
+                Console.WriteLine(e.EndNode.Name);
+                //Check if end node is not visited
                 if (!e.EndNode.Visited)
+                    {
+                        e.EndNode.Visited = true;
+                        e.EndNode.Parent = e.StartNode;
+                    }
+                //Check if end node is the goal
+                if (e.EndNode.Goal)
                 {
-                    e.EndNode.Visited = true;
-                    e.EndNode.Parent = e.StartNode;
-                    Console.WriteLine(e.StartNode.Name);
+                    Console.WriteLine("GOAL: " + e.EndNode.Name);
+                    break;
                 }
+                //Get list of edges connected to end node
                 foreach (Edge item in graph.edgeList.Where(x => x.StartNode.Id == e.EndNode.Id))
                 {
                     if (!item.EndNode.Visited)
                     {
                         edgeStack.Push(item);
+                    }
+                }
+            }
+        }
+
+        public static void BFS(Graph graph, Node startNode)
+        {
+            Queue<Edge> edgeQueue = new Queue<Edge>();
+            edgeQueue.Enqueue(new Edge(startNode, startNode));
+
+            while (edgeQueue.Count > 0)
+            {
+                Edge e = edgeQueue.Dequeue();
+                //Write current end node
+                Console.WriteLine(e.EndNode.Name);
+                //Check if end node is the goal
+                if (e.EndNode.Goal)
+                {
+                    Console.WriteLine("GOAL: " + e.EndNode.Name);
+                    break;
+                }
+                //Get list of edges connected to end node
+                foreach (Edge item in graph.edgeList.Where(x => x.StartNode.Id == e.EndNode.Id))
+                {
+                    if (!item.EndNode.Visited)
+                    {
+                        edgeQueue.Enqueue(item);
+                        item.EndNode.Visited = true;
+                        item.EndNode.Parent = e.StartNode;
                     }
                 }
             }

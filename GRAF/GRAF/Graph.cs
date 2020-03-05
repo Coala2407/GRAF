@@ -35,8 +35,16 @@ namespace GRAF
             {
                 Node startNode = nodeList[startNodeID - 1];
                 Node endNode = nodeList[endNodeID - 1];
-                Edge edgeToAdd = new Edge(startNode, endNode);
-                edgeList.Add(edgeToAdd);
+                Edge firstEdgeToAdd = new Edge(startNode, endNode);
+                Edge secondEdgeToAdd = new Edge(endNode, startNode);
+                if (!edgeList.Contains(firstEdgeToAdd))
+                {
+                    edgeList.Add(firstEdgeToAdd);
+                }
+                if (!edgeList.Contains(secondEdgeToAdd))
+                {
+                    edgeList.Add(secondEdgeToAdd);
+                }
             }
             catch (Exception e)
             {
